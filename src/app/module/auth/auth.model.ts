@@ -22,6 +22,10 @@ const adminSchema = new Schema<IUser, UserModal>(
     phone: {
       type: String,
     },
+    wallet: {
+      type: String,
+      default: '0',
+    },
     img: {
       type: String,
     },

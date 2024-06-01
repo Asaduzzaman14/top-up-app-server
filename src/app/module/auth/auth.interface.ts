@@ -12,6 +12,12 @@ export type IUser = {
   email: string;
 };
 
+export type IFilterRequest = {
+  email: string;
+  id: string;
+  searchTerm: string;
+};
+
 export type ILogin = {
   email: string;
   password: string;

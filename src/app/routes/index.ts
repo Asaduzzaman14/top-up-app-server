@@ -1,9 +1,9 @@
 import express from 'express';
 import { AuthRoutes } from '../module/auth/auth.route';
 import { BannerRoutes } from '../module/banner/banner.route';
-import { ServicesRoutes } from '../module/services/services.route';
-import { ServicesCatagoryRoute } from '../module/servicesCatagory/servicesCatagory.route';
-import { UserRoutes } from '../module/user/user.route';
+import { CatagoryRoute } from '../module/catagorys/catagorys.route';
+import { OrderRoutes } from '../module/orders/orders.route';
+import { ProductsRoute } from '../module/products/products.route';
 
 const router = express.Router();
 
@@ -12,23 +12,21 @@ const moduleRoutes = [
     path: '/auth',
     routes: AuthRoutes,
   },
-
   {
     path: '/banners',
     routes: BannerRoutes,
   },
-
   {
-    path: '/services',
-    routes: ServicesRoutes,
+    path: '/categorys',
+    routes: CatagoryRoute,
   },
   {
-    path: '/users',
-    routes: UserRoutes,
+    path: '/products',
+    routes: ProductsRoute,
   },
   {
-    path: '/services-catagory',
-    routes: ServicesCatagoryRoute,
+    path: '/orders',
+    routes: OrderRoutes,
   },
 ];
 

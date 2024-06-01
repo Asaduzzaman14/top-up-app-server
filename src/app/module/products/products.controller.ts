@@ -1,19 +1,16 @@
 import { Request, RequestHandler, Response } from 'express';
 import httpStatus from 'http-status';
-import { paginationFields } from '../../../constants/pagination';
 import catchAsync from '../../../shared/catchAsync';
-import pick from '../../../shared/pick';
 import sendResponse from '../../../shared/sendResponse';
-import { customerFilterableFields } from './servicesCatagory.constant';
-import { IServicesCatagory } from './servicesCatagory.interface';
-import { Services } from './servicesCatagory.service';
+import { ICategory } from '../catagorys/catagorys.interface';
+import { Services } from './products.service';
 
 const create: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { ...userData } = req.body;
     const result = await Services.create(userData);
 
-    sendResponse<IServicesCatagory>(res, {
+    sendResponse<ICategory>(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: 'Successfully  Services Catagory added',
@@ -25,14 +22,7 @@ const create: RequestHandler = catchAsync(
 //  get All Order
 
 const getAlldata = catchAsync(async (req: Request, res: Response) => {
-  const query = req?.query;
-  const user = req?.user;
-  console.log(user, 'user');
-
-  const paginationOptions = pick(query, paginationFields);
-  const filters = pick(query, customerFilterableFields);
-
-  const result = await Services.getAllData(filters, paginationOptions);
+  const result = await Services.getAllData();
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -45,10 +35,10 @@ const getDataById = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const result = await Services.getSingleData(id);
 
-  sendResponse<IServicesCatagory>(res, {
+  sendResponse<ICategory>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Services Catagory Retrieved Successfully',
+    message: 'Catagory Retrieved Successfully',
     data: result,
   });
 });
@@ -60,10 +50,10 @@ const updateData = catchAsync(async (req: Request, res: Response) => {
 
   const result = await Services.updateDataById(id, updatedData);
 
-  sendResponse<IServicesCatagory>(res, {
+  sendResponse<ICategory>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Services Catagory successfully updated',
+    message: 'Catagory successfully updated',
     data: result,
   });
 });
@@ -74,7 +64,7 @@ const deleteData = catchAsync(async (req: Request, res: Response) => {
 
   const result = await Services.deleteData(id);
 
-  sendResponse<IServicesCatagory>(res, {
+  sendResponse<ICategory>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Services Catagory deleted Successfully',

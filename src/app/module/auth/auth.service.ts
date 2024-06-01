@@ -58,12 +58,12 @@ const login = async (payload: ILogin): Promise<IloginResponse> => {
 
   const isUserExist = await User.isUserExist(userEmail);
   console.log(isUserExist, 'isUserExist');
-  const _id = isUserExist._id.toString();
 
   if (!isUserExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User does not found');
   }
   // console.log(password, isUserExist.password);
+  const _id = isUserExist._id.toString();
 
   if (
     isUserExist.password &&
