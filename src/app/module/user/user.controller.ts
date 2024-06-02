@@ -37,7 +37,7 @@ const deleteData = catchAsync(async (req: Request, res: Response) => {
 const getAllUserProfile = catchAsync(async (req: Request, res: Response) => {
   const user = req.user;
 
-  const result = await Services.getProfileData(user!.id);
+  const result = await Services.getProfileData(user!._id);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

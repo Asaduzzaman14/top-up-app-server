@@ -5,14 +5,14 @@ import { Controller } from './catagorys.controller';
 
 const router = express.Router();
 
-router.post('/', Controller.create);
+router.post('/', auth(ENUM_USER_ROLE.ADMIN), Controller.create);
 
-router.get('/:id', Controller.getDataById);
+// router.get('/:id', Controller.getDataById);
 
-router.patch('/:id', Controller.updateData);
+router.patch('/:id', auth(ENUM_USER_ROLE.ADMIN), Controller.updateData);
 
 router.delete('/:id', auth(ENUM_USER_ROLE.ADMIN), Controller.deleteData);
 
-router.get('/', Controller.getAlldata);
+router.get('/', auth(ENUM_USER_ROLE.USER), Controller.getAlldata);
 
 export const CatagoryRoute = router;

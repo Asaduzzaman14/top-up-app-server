@@ -5,6 +5,7 @@ import { CatagoryRoute } from '../module/catagorys/catagorys.route';
 import { DepositRoutes } from '../module/deposit/deposit.route';
 import { OrderRoutes } from '../module/orders/orders.route';
 import { ProductsRoute } from '../module/products/products.route';
+import { UserRoutes } from '../module/user/user.route';
 
 const router = express.Router();
 
@@ -12,6 +13,10 @@ const moduleRoutes = [
   {
     path: '/auth',
     routes: AuthRoutes,
+  },
+  {
+    path: '/user',
+    routes: UserRoutes,
   },
   {
     path: '/banners',
@@ -25,6 +30,7 @@ const moduleRoutes = [
     path: '/products',
     routes: ProductsRoute,
   },
+
   {
     path: '/deposit',
     routes: DepositRoutes,

@@ -6,9 +6,11 @@ import { Deposit } from './deposit.models';
 
 const DepostiRequest = async (
   data: IDeposit,
-  user: any
+  userId: any
 ): Promise<IDeposit | null> => {
-  data.userId = user._id;
+  data.userId = userId;
+
+  console.log(data, 'dddd');
 
   const result = await Deposit.create(data);
   console.log(result);
@@ -23,24 +25,42 @@ const DepostiRequest = async (
 const updateDataById = async (
   id: string,
   payload: IDeposit
-): Promise<IDeposit | null> => {
-  const user = await User.findById(id);
+): Promise<IDeposit | any> => {
+  const depositRequest = await Deposit.findById(id);
+  console.log(depositRequest);
 
-  // If the user is not found, return null or throw an error
-  if (!user) {
-    console.log('User not found');
-    return null;
+  if (!depositRequest) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Deposit Request not found');
   }
 
-  // Update the user's wallet balance
-  user.wallet = (Number(user.wallet) + Number(payload.amount)).toString();
-  await user.save();
+  if (depositRequest.status != 'pending') {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      'Deposit Request Already Updated'
+    );
+  }
 
-  // Update the deposit record and return the updated document
-  const result = await Deposit.findByIdAndUpdate(id, payload, {
+  if (payload.status === 'approved') {
+    const user = await User.findById(depositRequest.userId);
+    if (!user) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'User wallet not found');
+    }
+
+    // Update the user's wallet balance
+    const userWallet = Number(user.wallet) + Number(depositRequest.amount);
+
+    const walletData = {
+      wallet: userWallet,
+    };
+
+    await User.findByIdAndUpdate({ _id: depositRequest.userId }, walletData, {
+      new: true,
+    });
+  }
+
+  const result = await Deposit.findByIdAndUpdate({ _id: id }, payload, {
     new: true,
   });
-
   return result;
 };
 
@@ -50,6 +70,8 @@ const getDepositData = async (id: string): Promise<IDeposit | null> => {
 };
 
 const getAllAdminData = async (): Promise<IDeposit[]> => {
+  console.log('adad');
+
   const result = await Deposit.find({});
   return result;
 };

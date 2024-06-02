@@ -5,13 +5,13 @@ import { Controller } from './deposit.controller';
 
 const router = express.Router();
 
-router.post('/', auth(ENUM_USER_ROLE.USER), Controller.getAllUserProfile);
+router.post('/', auth(ENUM_USER_ROLE.USER), Controller.createDeposit);
 
-router.get('/admin', auth(ENUM_USER_ROLE.ADMIN), Controller.getAllUserProfile);
+router.get('/admin', Controller.getAlldataForAdmin);
 
 router.get('/', auth(ENUM_USER_ROLE.USER), Controller.getAllUserProfile);
 
-router.patch('/:id', auth(ENUM_USER_ROLE.ADMIN), Controller.updateData);
+router.patch('/:id', Controller.updateData);
 
 // router.delete('/:id', auth(ENUM_USER_ROLE.ADMIN), Controller.deleteData);
 

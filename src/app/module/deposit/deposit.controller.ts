@@ -8,8 +8,9 @@ import { Services } from './deposit.service';
 const createDeposit = catchAsync(async (req: Request, res: Response) => {
   const user = req.user;
   const data = req.body;
+  console.log(user, data);
 
-  const result = await Services.DepostiRequest(data, user!.id);
+  const result = await Services.DepostiRequest(data, user!._id);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -19,7 +20,7 @@ const createDeposit = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-// update By Id
+// update By Id // approve // reject
 const updateData = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const updatedData = req.body;
@@ -29,7 +30,7 @@ const updateData = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Deposit successfully Approved',
+    message: `Deposit successfully Update to ${result.status}`,
     data: result,
   });
 });
@@ -50,8 +51,7 @@ const getAllUserProfile = catchAsync(async (req: Request, res: Response) => {
 });
 //  get All
 const getAlldataForAdmin = catchAsync(async (req: Request, res: Response) => {
-  const user = req.user;
-  console.log(user);
+  console.log('asas');
 
   const result = await Services.getAllAdminData();
 
