@@ -1,21 +1,16 @@
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
-import { Products } from '../products/products.models';
 import { IOrder } from './orders.interface';
 import { Order } from './orders.models';
 
 const create = async (data: IOrder, user: any): Promise<IOrder | null> => {
+  const id = user._id;
+  console.log(id);
+
   const orderData = {
     userId: user._id,
     productId: data.productId,
   };
-
-  const product = await Products.findById(data.productId);
-  console.log(product);
-
-  if (!product) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Product not Found');
-  }
 
   const result = await Order.create(orderData);
   if (!result) {
@@ -25,8 +20,8 @@ const create = async (data: IOrder, user: any): Promise<IOrder | null> => {
   return result;
 };
 
-const getSingleData = async (id: string): Promise<IOrder | null> => {
-  const result = await Order.findById(id);
+const getAllData = async (userId: string): Promise<IOrder[] | null> => {
+  const result = await Order.find({ userId }).populate('productId');
   return result;
 };
 
@@ -45,15 +40,15 @@ const deleteData = async (id: string): Promise<IOrder | null> => {
   return result;
 };
 
-const getAllData = async (): Promise<IOrder[]> => {
-  const result = await Order.find({}).populate('productId');
+const getAllAdminData = async (): Promise<IOrder[] | null> => {
+  const result = await Order.find().populate('productId');
   return result;
 };
 
 export const Services = {
   create,
   getAllData,
-  getSingleData,
   updateDataById,
   deleteData,
+  getAllAdminData,
 };
