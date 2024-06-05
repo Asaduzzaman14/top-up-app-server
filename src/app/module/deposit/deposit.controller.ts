@@ -36,16 +36,16 @@ const updateData = catchAsync(async (req: Request, res: Response) => {
 });
 
 //  get All
-const getAllUserProfile = catchAsync(async (req: Request, res: Response) => {
+const getMyData = catchAsync(async (req: Request, res: Response) => {
   const user = req.user;
   console.log(user);
 
-  const result = await Services.getDepositData(user!.id);
+  const result = await Services.getDepositData(user!._id);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Deposit Retrieved Succesfully',
+    message: 'My Deposit Retrieved Succesfully',
     data: result,
   });
 });
@@ -65,7 +65,7 @@ const getAlldataForAdmin = catchAsync(async (req: Request, res: Response) => {
 
 export const Controller = {
   createDeposit,
-  getAllUserProfile,
+  getMyData,
   updateData,
   getAlldataForAdmin,
 };

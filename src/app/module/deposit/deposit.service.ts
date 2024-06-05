@@ -1,4 +1,5 @@
 import httpStatus from 'http-status';
+import { Types } from 'mongoose';
 import ApiError from '../../../errors/ApiError';
 import { User } from '../auth/auth.model';
 import { IDeposit } from './deposit.interface';
@@ -64,9 +65,20 @@ const updateDataById = async (
   return result;
 };
 
-const getDepositData = async (id: string): Promise<IDeposit | null> => {
-  const result = await Deposit.findById({ id });
-  return result;
+const getDepositData = async (
+  userId: string
+): Promise<IDeposit | any | null> => {
+  try {
+    if (!Types.ObjectId.isValid(userId)) {
+      throw new Error('Invalid user ID');
+    }
+
+    const result = await Deposit.find({ userId });
+
+    return result;
+  } catch (error) {
+    return null;
+  }
 };
 
 const getAllAdminData = async (): Promise<IDeposit[]> => {

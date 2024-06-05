@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
+import config from '../../../config';
 import { IUser, UserModal } from './auth.interface';
 
 const adminSchema = new Schema<IUser, UserModal>(
@@ -57,5 +58,17 @@ adminSchema.statics.isPasswordMatch = async function (
 
 // hashing password before save document
 // user.create() // user.save()
+adminSchema.pre('save', async function (next) {
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
+  const user = this;
+
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bycrypt_solt_rounds)
+  );
+  console.log(user);
+
+  next();
+});
 
 export const User = model<IUser, UserModal>('users', adminSchema);
