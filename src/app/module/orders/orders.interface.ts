@@ -7,6 +7,7 @@ export type IOrder = {
   _id: string;
   userId: Types.ObjectId | UserModal;
   productId: Types.ObjectId | ProductModel;
+  playerId: string;
   status: boolean;
 };
 
