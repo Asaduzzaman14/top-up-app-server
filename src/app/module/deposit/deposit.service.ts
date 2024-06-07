@@ -11,8 +11,7 @@ const DepostiRequest = async (
 ): Promise<IDeposit | null> => {
   data.userId = userId;
 
-  console.log(data, 'dddd');
-
+ 
   const result = await Deposit.create(data);
   console.log(result);
 

@@ -6,6 +6,7 @@ export type IDeposit = {
   userId: Types.ObjectId | UserModal;
   status: 'pending' | 'approved' | 'rejected';
   amount: string;
+  phone: string;
   trxId: string;
 };
 

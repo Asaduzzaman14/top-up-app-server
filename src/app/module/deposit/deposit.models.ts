@@ -18,6 +18,10 @@ const orderSchema = new Schema<IDeposit, DepositModal>(
       type: String,
       required: [true, 'amount is required'],
     },
+    phone: {
+      type: String,
+      required: [true, 'phone is required'],
+    },
     trxId: {
       type: String,
       required: [true, 'trxId is required'],
