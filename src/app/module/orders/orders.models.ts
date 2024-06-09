@@ -21,6 +21,11 @@ const orderSchema = new Schema<IOrder, OrderModal>(
       type: String,
       required: [true, 'playerId is required'],
     },
+    orderNumber: {
+      type: Number,
+      required: [true, 'orderNumber is required'],
+       unique:true
+    },
   },
   { timestamps: true }
 );

@@ -8,10 +8,20 @@ import { Order } from './orders.models';
 const create = async (data: IOrder, user: any): Promise<IOrder | null> => {
   const userId = user._id;
 
-  // Fetch user and product details concurrently
+  const latestOrder = await Order.findOne().sort({ createdAt: -1 }).exec();
+
+  if (latestOrder) {
+    data.orderNumber = latestOrder?.orderNumber + 1;
+  } else {
+    data.orderNumber = 0;
+  }
+  console.log(data);
+
+   // Fetch user and product details concurrently
   const [orderUser, product] = await Promise.all([
     User.findById(userId),
     Products.findById(data.productId),
+    // Order.findOne().sort({ createdAt: -1 }).exec()
   ]);
 
   if (!orderUser) {
@@ -38,7 +48,9 @@ const create = async (data: IOrder, user: any): Promise<IOrder | null> => {
     userId: userId,
     productId: data.productId,
     playerId: data.playerId,
+    orderNumber: data.orderNumber,
   };
+
 
   // Create the order
   const result = await Order.create(orderData);
