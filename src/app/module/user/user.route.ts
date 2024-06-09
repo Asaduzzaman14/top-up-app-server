@@ -5,6 +5,8 @@ import { Controller } from './user.controller';
 
 const router = express.Router();
 
+router.get('/admin', auth(ENUM_USER_ROLE.ADMIN), Controller.getAlldataForAdmin);
+
 router.get('/', auth(ENUM_USER_ROLE.USER), Controller.getAllUserProfile);
 
 router.patch(
@@ -15,6 +17,5 @@ router.patch(
 
 router.delete('/:id', auth(ENUM_USER_ROLE.ADMIN), Controller.deleteData);
 
-router.get('/admin', auth(ENUM_USER_ROLE.ADMIN), Controller.getAllUserProfile);
 
 export const UserRoutes = router;

@@ -48,8 +48,7 @@ const getAllUserProfile = catchAsync(async (req: Request, res: Response) => {
 });
 //  get All
 const getAlldataForAdmin = catchAsync(async (req: Request, res: Response) => {
-  const user = req.user;
-  console.log(user);
+ 
 
   const result = await Services.getAllAdminData();
 

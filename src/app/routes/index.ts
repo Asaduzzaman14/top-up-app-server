@@ -4,6 +4,7 @@ import { BannerRoutes } from '../module/banner/banner.route';
 import { CatagoryRoute } from '../module/catagorys/catagorys.route';
 import { DepositRoutes } from '../module/deposit/deposit.route';
 import { OrderRoutes } from '../module/orders/orders.route';
+import { PaymentRoute } from '../module/payment/payment.route';
 import { ProductsRoute } from '../module/products/products.route';
 import { UserRoutes } from '../module/user/user.route';
 
@@ -38,6 +39,11 @@ const moduleRoutes = [
   {
     path: '/orders',
     routes: OrderRoutes,
+  },
+  
+  {
+    path: '/payment',
+    routes: PaymentRoute,
   },
 ];
 

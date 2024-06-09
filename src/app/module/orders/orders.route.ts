@@ -13,6 +13,6 @@ router.delete('/:id', auth(ENUM_USER_ROLE.ADMIN), Controller.deleteData);
 
 router.get('/', auth(ENUM_USER_ROLE.USER), Controller.getAlldata);
 
-router.get('/admin', auth(ENUM_USER_ROLE.ADMIN), Controller.getAlldata);
+router.get('/admin', auth(ENUM_USER_ROLE.ADMIN), Controller.getAlldataForAdmin);
 
 export const OrderRoutes = router;

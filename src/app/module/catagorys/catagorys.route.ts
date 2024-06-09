@@ -7,12 +7,13 @@ const router = express.Router();
 
 router.post('/', auth(ENUM_USER_ROLE.ADMIN), Controller.create);
 
-// router.get('/:id', Controller.getDataById);
-
+ 
 router.patch('/:id', auth(ENUM_USER_ROLE.ADMIN), Controller.updateData);
 
 router.delete('/:id', auth(ENUM_USER_ROLE.ADMIN), Controller.deleteData);
 
-router.get('/', auth(ENUM_USER_ROLE.USER), Controller.getAlldata);
+router.get('/', auth(ENUM_USER_ROLE.USER,), Controller.getAlldata);
+
+router.get('/admin', auth(ENUM_USER_ROLE.ADMIN), Controller.getAlldataForAdmin);
 
 export const CatagoryRoute = router;

@@ -1,5 +1,6 @@
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
+import { Products } from '../products/products.models';
 import { ICategory } from './catagorys.interface';
 import { Category } from './catagorys.models';
 import { getCategoriesWithProducts } from './catagorys.utils';
@@ -27,6 +28,7 @@ const updateDataById = async (
   id: string,
   paylode: ICategory
 ): Promise<ICategory | null> => {
+  
   const result = await Category.findByIdAndUpdate({ _id: id }, paylode, {
     new: true,
   });
@@ -34,9 +36,23 @@ const updateDataById = async (
 };
 
 const deleteData = async (id: string): Promise<ICategory | null> => {
-  const result = await Category.findByIdAndDelete(id);
+
+    // Delete all products associated with the category
+      await Products.deleteMany({ categoryId: id });
+
+    // Delete the category
+    const result = await Category.findByIdAndDelete(id);
+
   return result;
 };
+
+
+// for admin
+const getAllDataFOrAdmin = async (): Promise<ICategory[]> => {
+  const result = await  Category.find({})
+  return result;
+};
+
 
 export const Services = {
   create,
@@ -44,4 +60,5 @@ export const Services = {
   getSingleData,
   updateDataById,
   deleteData,
+  getAllDataFOrAdmin
 };

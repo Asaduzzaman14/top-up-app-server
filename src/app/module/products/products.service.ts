@@ -5,13 +5,12 @@ import { Products } from './products.models';
 
 const create = async (data: IProduct): Promise<IProduct | null> => {
   console.log(data);
-
-  const newCustomer = await Products.create(data);
-  if (!newCustomer) {
+   const newProduct = await Products.create(data);
+  if (!newProduct) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Failed to add Catagory');
   }
 
-  return newCustomer;
+  return newProduct;
 };
 
 const getAllData = async (): Promise<IProduct[]> => {
@@ -28,6 +27,8 @@ const updateDataById = async (
   id: string,
   paylode: IProduct
 ): Promise<IProduct | null> => {
+
+  
   const result = await Products.findByIdAndUpdate({ _id: id }, paylode, {
     new: true,
   });

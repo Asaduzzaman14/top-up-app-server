@@ -31,6 +31,9 @@ const getAlldata = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+
+
+
 const getDataById = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const result = await Services.getSingleData(id);
@@ -72,10 +75,24 @@ const deleteData = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+
+const getAlldataForAdmin= catchAsync(async (req: Request, res: Response) => {
+  const result = await Services.getAllDataFOrAdmin();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'All Catagory Retrieved  Succesfully',
+    data: result,
+  });
+});
+
+
 export const Controller = {
   create,
   getAlldata,
   updateData,
   getDataById,
   deleteData,
+  getAlldataForAdmin
 };
