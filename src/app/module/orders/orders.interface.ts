@@ -1,13 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { Model, Types } from 'mongoose';
 import { UserModal } from '../auth/auth.interface';
-import { ProductModel } from '../products/products.interface';
 
 export type IOrder = {
   _id: string;
   userId: Types.ObjectId | UserModal;
-  productId: Types.ObjectId | ProductModel;
-  playerId: string;
+  productName: string;
+  img: string;
+  price: string;
+  diamond: string;
+   playerId: string;
   orderNumber: number;
   status: boolean;
 };

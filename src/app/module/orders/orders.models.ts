@@ -3,11 +3,6 @@ import { IOrder, OrderModal } from './orders.interface';
 
 const orderSchema = new Schema<IOrder, OrderModal>(
   {
-    productId: {
-      type: Types.ObjectId,
-      ref: 'products',
-      required: [true, 'Product Id is required'],
-    },
     userId: {
       type: Types.ObjectId,
       ref: 'users',
@@ -17,6 +12,19 @@ const orderSchema = new Schema<IOrder, OrderModal>(
       type: Boolean,
       default: false,
     },
+    img: {
+      type: String,
+      required: [true, 'img is required'],
+    },
+    price: {
+      type: String,
+      required: [true, 'price is required'],
+    },
+    
+    productName: {
+      type: String,
+      required: [true, 'productName is required'],
+    },
     playerId: {
       type: String,
       required: [true, 'playerId is required'],
@@ -24,7 +32,7 @@ const orderSchema = new Schema<IOrder, OrderModal>(
     orderNumber: {
       type: Number,
       required: [true, 'orderNumber is required'],
-       unique:true
+      unique: true,
     },
   },
   { timestamps: true }
