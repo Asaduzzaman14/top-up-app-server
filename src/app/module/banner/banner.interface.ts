@@ -3,7 +3,6 @@ import { Model } from 'mongoose';
 
 export type IBanner = {
   id: string;
-  link: string;
   img: string;
 };
 

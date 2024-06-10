@@ -9,8 +9,9 @@ const orderSchema = new Schema<IOrder, OrderModal>(
       required: [true, 'userId is required'],
     },
     status: {
-      type: Boolean,
-      default: false,
+      type: String,
+      enum: ['pending', 'complete', 'rejected'],
+      default: 'pending',
     },
     img: {
       type: String,
@@ -20,7 +21,6 @@ const orderSchema = new Schema<IOrder, OrderModal>(
       type: String,
       required: [true, 'price is required'],
     },
-    
     productName: {
       type: String,
       required: [true, 'productName is required'],

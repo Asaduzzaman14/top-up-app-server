@@ -24,6 +24,7 @@ const create: RequestHandler = catchAsync(
 const updateData = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const updatedData = req.body;
+  console.log(id, updateData);
 
   const result = await Services.updateDataById(id, updatedData);
 

@@ -7,7 +7,6 @@ import { Products } from '../products/products.models';
 import { IOrder } from './orders.interface';
 import { Order } from './orders.models';
 
-
 export type IOrderType = {
   _id: string;
   userId: Types.ObjectId | UserModal;
@@ -24,7 +23,7 @@ export type IOrderType = {
 
 const create = async (data: IOrderType, user: any): Promise<IOrder | null> => {
   const userId = user._id;
-   // Function to get the next order number
+  // Function to get the next order number
   const getNextOrderNumber = async (): Promise<number> => {
     const latestOrder = await Order.findOne().sort({ createdAt: -1 }).exec();
     return latestOrder ? latestOrder.orderNumber + 1 : 1;
@@ -64,7 +63,7 @@ const create = async (data: IOrderType, user: any): Promise<IOrder | null> => {
 
       // Get the next order number
       const orderNumber = await getNextOrderNumber();
- 
+
       const orderData = {
         userId: userId,
         img: product.img,
@@ -84,7 +83,10 @@ const create = async (data: IOrderType, user: any): Promise<IOrder | null> => {
     } catch (error) {
       await session.abortTransaction();
       session.endSession();
-      throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Failed to create order');
+      throw new ApiError(
+        httpStatus.INTERNAL_SERVER_ERROR,
+        'Failed to create order'
+      );
     }
   } catch (error) {
     throw error;

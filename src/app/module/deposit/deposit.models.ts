@@ -13,7 +13,6 @@ const orderSchema = new Schema<IDeposit, DepositModal>(
       enum: ['pending', 'approved', 'rejected'],
       default: 'pending',
     },
-
     amount: {
       type: String,
       required: [true, 'amount is required'],

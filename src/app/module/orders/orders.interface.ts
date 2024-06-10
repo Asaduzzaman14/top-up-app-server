@@ -9,9 +9,9 @@ export type IOrder = {
   img: string;
   price: string;
   diamond: string;
-   playerId: string;
+  playerId: string;
   orderNumber: number;
-  status: boolean;
+  status: 'pending' | 'complete' | 'rejected';
 };
 
 export type OrderModal = Model<IOrder>;

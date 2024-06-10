@@ -40,7 +40,6 @@ const moduleRoutes = [
     path: '/orders',
     routes: OrderRoutes,
   },
-  
   {
     path: '/payment',
     routes: PaymentRoute,

@@ -36,6 +36,7 @@ const updateDataById = async (
 };
 
 const deleteData = async (id: string): Promise<IProduct | null> => {
+   
   const result = await Products.findByIdAndDelete(id);
   return result;
 };
