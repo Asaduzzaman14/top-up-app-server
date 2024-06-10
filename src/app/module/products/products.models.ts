@@ -23,10 +23,6 @@ const productSchema = new Schema<IProduct, ProductModel>(
       type: String,
       required: [true, 'price is required'],
     },
-    diamond: {
-      type: String,
-      required: [true, 'daimond is required'],
-    },
   },
   { timestamps: true }
 );

@@ -67,7 +67,6 @@ const create = async (data: IOrderType, user: any): Promise<IOrder | null> => {
       const orderData = {
         userId: userId,
         img: product.img,
-        diamond: product.diamond,
         productName: product.name,
         price: product.price,
         playerId: data.playerId,

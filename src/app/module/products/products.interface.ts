@@ -7,7 +7,6 @@ export type IProduct = {
   img?: string;
   description: string;
   price: string;
-  diamond: string;
   catagoryId: Types.ObjectId | ICategory;
 };
 
