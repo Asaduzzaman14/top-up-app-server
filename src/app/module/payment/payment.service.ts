@@ -4,7 +4,6 @@ import { IPayment } from './payment.interface';
 import { Payments } from './payment.models';
 
 const create = async (data: IPayment, id: any): Promise<IPayment | null> => {
-  
   console.log(data, id);
   const newProduct = await Payments.create(data);
 
@@ -16,7 +15,7 @@ const create = async (data: IPayment, id: any): Promise<IPayment | null> => {
 };
 
 const getAllData = async (): Promise<IPayment[]> => {
-  const result = await Payments.find({});
+  const result = await Payments.find({}).populate('userId');
   return result;
 };
 

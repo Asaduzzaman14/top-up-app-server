@@ -11,10 +11,16 @@ const productSchema = new Schema<IPayment, PaymentModel>(
       type: String,
       required: [true, 'apiKey is required'],
     },
+
     userId: {
       type: Types.ObjectId,
-      ref: 'Users',
+      ref: 'users',
       required: true,
+    },
+    status: {
+      type: String,
+      enum: ['pending', 'approved', 'rejected'],
+      default: 'pending',
     },
   },
   { timestamps: true }
