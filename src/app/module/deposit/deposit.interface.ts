@@ -4,10 +4,12 @@ import { UserModal } from '../auth/auth.interface';
 
 export type IDeposit = {
   userId: Types.ObjectId | UserModal;
-  status: 'pending' | 'approved' | 'rejected';
+  status: 'pending' | 'complete' | 'rejected';
   amount: string;
   phone: string;
   trxId: string;
+  method: string;
+  token: string;
 };
 
 export type DepositModal = Model<IDeposit>;

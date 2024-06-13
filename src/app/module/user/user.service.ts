@@ -16,10 +16,20 @@ const deleteData = async (id: string): Promise<IUser | null> => {
   return result;
 };
 
-const getProfileData = async (id: string): Promise<IUser | null> => {
-  const result = await User.findById(id);
+const getProfileData = async (id: string): Promise<any | null> => {
+  const profile = await User.findById(id);
+
+  if (!profile) {
+    return null;
+  }
+
+  const result = {
+    profile,
+  };
+
   return result;
 };
+
 const getAllAdminData = async (): Promise<IUser[]> => {
   const result = await User.find({});
   return result;

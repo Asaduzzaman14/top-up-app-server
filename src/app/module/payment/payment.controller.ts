@@ -28,7 +28,7 @@ const getAlldata = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'All Data Retrieved  Succesfully',
+    message: 'Payment Method Retrieved  Succesfully',
     data: result,
   });
 });
@@ -39,7 +39,7 @@ const getDataById = catchAsync(async (req: Request, res: Response) => {
   sendResponse<IPayment>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Deposit Retrieved Successfully',
+    message: 'payment method Retrieved Successfully',
     data: result,
   });
 });
@@ -54,7 +54,7 @@ const updateData = catchAsync(async (req: Request, res: Response) => {
   sendResponse<IPayment>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Deposit successfully updated',
+    message: 'payment method successfully updated',
     data: result,
   });
 });

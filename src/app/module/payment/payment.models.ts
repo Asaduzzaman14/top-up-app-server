@@ -1,4 +1,4 @@
-import { Schema, Types, model } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import { IPayment, PaymentModel } from './payment.interface';
 
 const productSchema = new Schema<IPayment, PaymentModel>(
@@ -10,12 +10,6 @@ const productSchema = new Schema<IPayment, PaymentModel>(
     pannelUrl: {
       type: String,
       required: [true, 'apiKey is required'],
-    },
-
-    userId: {
-      type: Types.ObjectId,
-      ref: 'users',
-      required: true,
     },
     status: {
       type: String,

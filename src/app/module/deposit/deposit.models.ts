@@ -10,12 +10,15 @@ const orderSchema = new Schema<IDeposit, DepositModal>(
     },
     status: {
       type: String,
-      enum: ['pending', 'approved', 'rejected'],
-      default: 'pending',
+      enum: ['pending', 'complete', 'rejected'],
     },
     amount: {
       type: String,
       required: [true, 'amount is required'],
+    },
+    method: {
+      type: String,
+      required: [true, 'method is required'],
     },
     phone: {
       type: String,
@@ -24,6 +27,9 @@ const orderSchema = new Schema<IDeposit, DepositModal>(
     trxId: {
       type: String,
       required: [true, 'trxId is required'],
+    },
+    token: {
+      type: String,
     },
   },
   { timestamps: true }

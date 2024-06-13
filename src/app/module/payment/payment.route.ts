@@ -9,9 +9,9 @@ router.post('/', auth(ENUM_USER_ROLE.USER), Controller.create);
 
 router.get('/', auth(ENUM_USER_ROLE.ADMIN), Controller.getAlldata);
 
-// router.get('/:id', Controller.getDataById);
+router.patch('/:id', auth(ENUM_USER_ROLE.ADMIN), Controller.updateData);
 
-// router.patch('/:id', auth(ENUM_USER_ROLE.ADMIN), Controller.updateData);
+// router.get('/:id', Controller.getDataById);
 
 // router.delete('/:id', auth(ENUM_USER_ROLE.ADMIN), Controller.deleteData);
 

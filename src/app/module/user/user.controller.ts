@@ -14,7 +14,7 @@ const updateData = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Order successfully updated',
+    message: 'Profile successfully updated',
     data: result,
   });
 });
@@ -28,7 +28,7 @@ const deleteData = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Order deleted Successfully',
+    message: 'Profile deleted Successfully',
     data: result,
   });
 });
@@ -48,8 +48,6 @@ const getAllUserProfile = catchAsync(async (req: Request, res: Response) => {
 });
 //  get All
 const getAlldataForAdmin = catchAsync(async (req: Request, res: Response) => {
- 
-
   const result = await Services.getAllAdminData();
 
   sendResponse(res, {

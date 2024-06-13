@@ -8,7 +8,7 @@ const create = async (data: IPayment, id: any): Promise<IPayment | null> => {
   const newProduct = await Payments.create(data);
 
   if (!newProduct) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Failed to add Catagory');
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Failed to add deposit method');
   }
 
   return newProduct;

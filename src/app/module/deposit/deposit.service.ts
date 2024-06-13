@@ -9,9 +9,29 @@ const DepostiRequest = async (
   data: IDeposit,
   userId: any
 ): Promise<IDeposit | null> => {
+  console.log(data, 'adfsdf');
+
   data.userId = userId;
+
   const result = await Deposit.create(data);
-  console.log(result);
+
+  if (data.status === 'complete') {
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'User wallet not found');
+    }
+
+    // Update the user's wallet balance
+    const userWallet = Number(user.wallet) + Number(data.amount);
+
+    const walletData = {
+      wallet: userWallet,
+    };
+
+    await User.findByIdAndUpdate({ _id: userId }, walletData, {
+      new: true,
+    });
+  }
 
   if (!result) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Failed to Deposit request');
@@ -38,7 +58,7 @@ const updateDataById = async (
     );
   }
 
-  if (payload.status === 'approved') {
+  if (payload.status === 'complete') {
     const user = await User.findById(depositRequest.userId);
     if (!user) {
       throw new ApiError(httpStatus.NOT_FOUND, 'User wallet not found');
@@ -81,7 +101,7 @@ const getDepositData = async (
 const getAllAdminData = async (): Promise<IDeposit[]> => {
   console.log('adad');
 
-  const result = await Deposit.find({});
+  const result = await Deposit.find({}).populate('userId');
   return result;
 };
 
