@@ -4,6 +4,7 @@ import { BannerRoutes } from '../module/banner/banner.route';
 import { CatagoryRoute } from '../module/catagorys/catagorys.route';
 import { DepositRoutes } from '../module/deposit/deposit.route';
 import { MPaymentRoute } from '../module/mPayment/mPayment.route';
+import { NoticeRoutes } from '../module/notice/notice.route';
 import { OrderRoutes } from '../module/orders/orders.route';
 import { PaymentRoute } from '../module/payment/payment.route';
 import { ProductsRoute } from '../module/products/products.route';
@@ -48,6 +49,10 @@ const moduleRoutes = [
   {
     path: '/manually-payment',
     routes: MPaymentRoute,
+  },
+  {
+    path: '/notice',
+    routes: NoticeRoutes,
   },
 ];
 

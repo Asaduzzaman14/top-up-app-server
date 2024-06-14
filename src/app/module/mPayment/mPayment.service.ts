@@ -14,7 +14,14 @@ const create = async (data: IMPayment): Promise<IMPayment | null> => {
 };
 
 const getAllData = async (): Promise<IMPayment[]> => {
-  const result = await Payments.find({});
+  const result = await Payments.find({
+    status: 'active',
+  });
+  return result;
+};
+
+const getAllAdminData = async (): Promise<IMPayment[]> => {
+  const result = await Payments.find();
   return result;
 };
 
@@ -38,4 +45,5 @@ export const Services = {
   getAllData,
   updateDataById,
   deleteData,
+  getAllAdminData,
 };

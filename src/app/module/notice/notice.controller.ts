@@ -2,43 +2,42 @@ import { Request, RequestHandler, Response } from 'express';
 import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
-import { IMPayment } from './mPayment.interface';
-import { Services } from './mPayment.service';
+import { INotice } from './notice.interface';
+import { Services } from './notice.service';
 
 const create: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { ...data } = req.body;
-    const result = await Services.create(data);
 
-    sendResponse<IMPayment>(res, {
+    const result = await Services.create(data);
+    sendResponse<INotice>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'payment method add Success',
+      message: 'Successfully  Notice added',
       data: result,
     });
   }
 );
 
-//  get All Order
-
+//  get All
 const getAlldata = catchAsync(async (req: Request, res: Response) => {
   const result = await Services.getAllData();
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Payment Method Retrieved  Succesfully',
+    message: 'Data Retrieved Succesfully',
     data: result,
   });
 });
+const getDataById = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const result = await Services.getSingleData(id);
 
-const getAllAdmindata = catchAsync(async (req: Request, res: Response) => {
-  const result = await Services.getAllAdminData();
-
-  sendResponse(res, {
+  sendResponse<INotice>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Payment Method Retrieved  Succesfully',
+    message: 'Data Retrieved Successfully',
     data: result,
   });
 });
@@ -47,13 +46,13 @@ const getAllAdmindata = catchAsync(async (req: Request, res: Response) => {
 const updateData = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const updatedData = req.body;
-  console.log(id, updateData);
+
   const result = await Services.updateDataById(id, updatedData);
 
-  sendResponse<IMPayment>(res, {
+  sendResponse<INotice>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'payment method successfully updated',
+    message: 'Notice successfully updated',
     data: result,
   });
 });
@@ -64,10 +63,10 @@ const deleteData = catchAsync(async (req: Request, res: Response) => {
 
   const result = await Services.deleteData(id);
 
-  sendResponse<IMPayment>(res, {
+  sendResponse<INotice>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Payment Method deleted Successfully',
+    message: 'Data deleted Successfully',
     data: result,
   });
 });
@@ -76,6 +75,6 @@ export const Controller = {
   create,
   getAlldata,
   updateData,
+  getDataById,
   deleteData,
-  getAllAdmindata,
 };
