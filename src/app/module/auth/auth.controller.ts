@@ -53,7 +53,34 @@ const login = catchAsync(async (req: Request, res: Response) => {
   sendResponse<IloginResponse>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'User Loged in successfully',
+    message: 'User Logged in successfull',
+    data: result,
+  });
+
+  // console.log(req.body);
+});
+
+const adminLogin = catchAsync(async (req: Request, res: Response) => {
+  const { ...loginData } = req.body;
+  // console.log(loginData);
+
+  const result = await AuthService.adminLogin(loginData);
+
+  // const { refreshToken } = result;
+
+  // // set refresh token into cookie
+  // const cookieOptions = {
+  //   secure: config.env === 'production',
+  //   httpOnly: true,
+  // };
+  // res.cookie('refreshToken', refreshToken, cookieOptions);
+
+  // delete result.refreshToken
+
+  sendResponse<IloginResponse>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Admin Logged in successfully',
     data: result,
   });
 
@@ -109,6 +136,7 @@ export const AuthController = {
   create,
   createadmin,
   login,
+  adminLogin,
   changePassword,
   refreshToken,
 };

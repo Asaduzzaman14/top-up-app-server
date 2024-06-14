@@ -62,7 +62,48 @@ const login = async (payload: ILogin): Promise<IloginResponse> => {
   if (!isUserExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User does not found');
   }
+
+  if (isUserExist.role == 'admin') {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Access denied: User only');
+  }
+
   // console.log(password, isUserExist.password);
+  const _id = isUserExist._id.toString();
+
+  if (
+    isUserExist.password &&
+    !(await User.isPasswordMatch(password, isUserExist.password))
+  ) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'password is incorrect');
+  }
+  const { email, role } = isUserExist;
+
+  const accessToken = jwtHelpers.createToken(
+    { email, role, _id },
+    config.jwt_access_secret as Secret,
+    config.secret_expires_in as string
+  );
+
+  return {
+    accessToken,
+  };
+};
+
+const adminLogin = async (payload: ILogin): Promise<IloginResponse> => {
+  const { email: userEmail, password } = payload;
+
+  // check
+
+  const isUserExist = await User.isUserExist(userEmail);
+
+  if (!isUserExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User does not found');
+  }
+
+  if (isUserExist.role != 'admin') {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Access denied: Admins only');
+  }
+
   const _id = isUserExist._id.toString();
 
   if (
@@ -157,6 +198,7 @@ export const AuthService = {
   create,
   createAdmin,
   login,
+  adminLogin,
   passwordChange,
   refreshToken,
 };

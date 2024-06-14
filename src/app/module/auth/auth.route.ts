@@ -11,6 +11,13 @@ router.post(
   // validateRequest(AuthValidation.authValidationZodSchema),
   AuthController.login
 );
+
+router.post(
+  '/admin/login',
+  // validateRequest(AuthValidation.authValidationZodSchema),
+  AuthController.adminLogin
+);
+
 router.post('/register', AuthController.create);
 
 router.post(

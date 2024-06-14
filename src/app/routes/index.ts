@@ -46,7 +46,7 @@ const moduleRoutes = [
     routes: PaymentRoute,
   },
   {
-    path: '/manualy-payment',
+    path: '/manually-payment',
     routes: MPaymentRoute,
   },
 ];

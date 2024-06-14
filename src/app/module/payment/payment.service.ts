@@ -15,7 +15,7 @@ const create = async (data: IPayment, id: any): Promise<IPayment | null> => {
 };
 
 const getAllData = async (): Promise<IPayment[]> => {
-  const result = await Payments.find({}).populate('userId');
+  const result = await Payments.find({});
   return result;
 };
 
