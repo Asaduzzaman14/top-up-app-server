@@ -113,7 +113,7 @@ const deleteData = async (id: string): Promise<IOrder | null> => {
 };
 
 const getAllAdminData = async (): Promise<IOrder[] | null> => {
-  const result = await Order.find().populate('userId');
+  const result = await Order.find({}).populate('userId');
   return result;
 };
 

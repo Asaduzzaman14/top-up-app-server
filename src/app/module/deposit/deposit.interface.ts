@@ -4,7 +4,7 @@ import { UserModal } from '../auth/auth.interface';
 
 export type IDeposit = {
   userId: Types.ObjectId | UserModal;
-  status: 'pending' | 'complete' | 'rejected';
+  status: 'pending' | 'completed' | 'rejected';
   amount: string;
   phone: string;
   trxId: string;

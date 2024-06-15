@@ -5,7 +5,7 @@ import { IUser } from '../auth/auth.interface';
 export type IPayment = {
   apiKey: string;
   pannelUrl: string;
-  status: 'pending' | 'approved' | 'rejected';
+  status: 'active' | 'inactive';
   userId: Types.ObjectId | IUser;
 };
 

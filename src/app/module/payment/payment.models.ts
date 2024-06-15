@@ -13,8 +13,7 @@ const productSchema = new Schema<IPayment, PaymentModel>(
     },
     status: {
       type: String,
-      enum: ['pending', 'approved', 'rejected'],
-      default: 'pending',
+      enum: ['active', 'inactive'],
     },
   },
   { timestamps: true }

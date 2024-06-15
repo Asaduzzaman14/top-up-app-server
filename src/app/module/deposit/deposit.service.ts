@@ -15,7 +15,7 @@ const DepostiRequest = async (
 
   const result = await Deposit.create(data);
 
-  if (data.status === 'complete') {
+  if (data.status === 'completed') {
     const user = await User.findById(userId);
     if (!user) {
       throw new ApiError(httpStatus.NOT_FOUND, 'User wallet not found');
@@ -58,7 +58,7 @@ const updateDataById = async (
     );
   }
 
-  if (payload.status === 'complete') {
+  if (payload.status === 'completed') {
     const user = await User.findById(depositRequest.userId);
     if (!user) {
       throw new ApiError(httpStatus.NOT_FOUND, 'User wallet not found');

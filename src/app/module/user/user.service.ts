@@ -19,15 +19,7 @@ const deleteData = async (id: string): Promise<IUser | null> => {
 const getProfileData = async (id: string): Promise<any | null> => {
   const profile = await User.findById(id);
 
-  if (!profile) {
-    return null;
-  }
-
-  const result = {
-    profile,
-  };
-
-  return result;
+  return profile;
 };
 
 const getAllAdminData = async (): Promise<IUser[]> => {
