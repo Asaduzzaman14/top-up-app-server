@@ -141,7 +141,7 @@ const passwordChange = async (
   // alternative way to change password
   console.log(user);
 
-  const isUserExist = await User.findOne({ id: user?.userId }).select(
+  const isUserExist = await User.findOne({ _id: user?._id }).select(
     '+password'
   );
   console.log(isUserExist, 'this is user');
@@ -165,46 +165,10 @@ const passwordChange = async (
   isUserExist.save();
 };
 
-const refreshToken = async (token: string): Promise<any> => {
-  // verify token
-  let verifiedToken = null;
-  try {
-    verifiedToken = jwtHelpers.verifyToken(
-      token,
-      config.refresh_secret as Secret
-    );
-  } catch (error) {
-    throw new ApiError(httpStatus.FORBIDDEN, 'invalid refresh token');
-  }
-
-  const { userId } = verifiedToken;
-
-  // // user deleted fromd database then have refresh token
-  // // checking deleted user
-  const isUserExist = await User.isUserExist(userId);
-  if (!isUserExist) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User Does not exist');
-  }
-
-  // genatate new token
-
-  const newAccessToken = jwtHelpers.createToken(
-    { email: isUserExist.email, password: isUserExist.password },
-    config.jwt_access_secret as Secret,
-    config.secret_expires_in as string
-  );
-  console.log(newAccessToken, 'new AccessToken');
-
-  return {
-    accessToken: newAccessToken,
-  };
-};
-
 export const AuthService = {
   create,
   createAdmin,
   login,
   adminLogin,
   passwordChange,
-  refreshToken,
 };

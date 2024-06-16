@@ -106,37 +106,10 @@ const changePassword = catchAsync(async (req: Request, res: Response) => {
   // console.log(req.body);
 });
 
-const refreshToken = catchAsync(async (req: Request, res: Response) => {
-  const { refreshToken } = req.cookies;
-  console.log(refreshToken, 'my token');
-
-  const result = await AuthService.refreshToken(refreshToken);
-  // console.log(result, 'refreshToken');
-
-  // set refresh token into cookie
-  // const cookieOptions = {
-  //   secure: config.env === 'production',
-  //   httpOnly: true,
-  // };
-
-  // res.cookie('refreshToken', refreshToken, cookieOptions);
-
-  // sendResponse<IRefreshTokenResponse>(res, {
-  sendResponse<any>(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'User logged in successfully !',
-    data: result,
-  });
-
-  // console.log(req.body);
-});
-
 export const AuthController = {
   create,
   createadmin,
   login,
   adminLogin,
   changePassword,
-  refreshToken,
 };

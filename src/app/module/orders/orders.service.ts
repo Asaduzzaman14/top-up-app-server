@@ -11,7 +11,6 @@ export type IOrderType = {
   _id: string;
   userId: Types.ObjectId | UserModal;
   productName: string;
-  img: string;
   price: string;
   diamond: string;
   catagoryName: string;
@@ -66,7 +65,6 @@ const create = async (data: IOrderType, user: any): Promise<IOrder | null> => {
 
       const orderData = {
         userId: userId,
-        img: product.img,
         productName: product.name,
         price: product.price,
         playerId: data.playerId,
@@ -117,10 +115,35 @@ const getAllAdminData = async (): Promise<IOrder[] | null> => {
   return result;
 };
 
+const getWeeklySell = async () => {
+  const orders = await Order.aggregate([
+    {
+      $addFields: {
+        price: { $toDouble: '$price' }, // Convert price to double
+      },
+    },
+    {
+      $group: {
+        _id: {
+          isoWeek: { $isoWeek: '$date' },
+          year: { $year: '$date' },
+        },
+        totalSales: { $sum: '$price' },
+        count: { $sum: 1 },
+      },
+    },
+    {
+      $sort: { '_id.year': 1, '_id.isoWeek': 1 },
+    },
+  ]);
+  return orders;
+};
+
 export const Services = {
   create,
   getAllData,
   updateDataById,
   deleteData,
   getAllAdminData,
+  getWeeklySell,
 };
