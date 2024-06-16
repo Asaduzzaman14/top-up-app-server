@@ -63,9 +63,24 @@ const getAlldataForAdmin = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// // Delete Parts
+const deleteData = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+
+  const result = await Services.deleteData(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Data deleted Successfully',
+    data: result,
+  });
+});
+
 export const Controller = {
   createDeposit,
   getMyData,
   updateData,
   getAlldataForAdmin,
+  deleteData,
 };

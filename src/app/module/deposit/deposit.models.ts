@@ -11,6 +11,7 @@ const orderSchema = new Schema<IDeposit, DepositModal>(
     status: {
       type: String,
       enum: ['pending', 'completed', 'rejected'],
+      required: [true, 'status is required'],
     },
     amount: {
       type: String,

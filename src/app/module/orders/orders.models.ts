@@ -13,10 +13,10 @@ const orderSchema = new Schema<IOrder, OrderModal>(
       enum: ['pending', 'complete', 'rejected'],
       default: 'pending',
     },
-    img: {
-      type: String,
-      required: [true, 'img is required'],
-    },
+    // img: {
+    //   type: String,
+    //   required: [true, 'img is required'],
+    // },
     price: {
       type: String,
       required: [true, 'price is required'],

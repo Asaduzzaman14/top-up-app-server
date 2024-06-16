@@ -13,6 +13,6 @@ router.get('/admin', auth(ENUM_USER_ROLE.ADMIN), Controller.getAlldataForAdmin);
 
 router.patch('/:id', auth(ENUM_USER_ROLE.ADMIN), Controller.updateData);
 
-// router.delete('/:id', auth(ENUM_USER_ROLE.ADMIN), Controller.deleteData);
+router.delete('/:id', auth(ENUM_USER_ROLE.ADMIN), Controller.deleteData);
 
 export const DepositRoutes = router;

@@ -105,9 +105,15 @@ const getAllAdminData = async (): Promise<IDeposit[]> => {
   return result;
 };
 
+const deleteData = async (id: string): Promise<IDeposit | null> => {
+  const result = await Deposit.findByIdAndDelete(id);
+  return result;
+};
+
 export const Services = {
   DepostiRequest,
   updateDataById,
   getDepositData,
   getAllAdminData,
+  deleteData,
 };

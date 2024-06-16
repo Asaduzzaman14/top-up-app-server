@@ -4,7 +4,7 @@ import { ICategory } from '../catagorys/catagorys.interface';
 
 export type IProduct = {
   name: string;
-  img?: string;
+  // img?: string;
   description: string;
   price: string;
   catagoryId: Types.ObjectId | ICategory;
