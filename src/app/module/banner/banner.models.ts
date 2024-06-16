@@ -7,6 +7,10 @@ const bannerSchema = new Schema<IBanner, BannerModal>(
       type: String,
       required: [true, 'image is required'],
     },
+    url: {
+      type: String,
+      required: [true, 'url is required'],
+    },
   },
   { timestamps: true }
 );

@@ -33,7 +33,6 @@ const moduleRoutes = [
     path: '/products',
     routes: ProductsRoute,
   },
-
   {
     path: '/deposit',
     routes: DepositRoutes,
