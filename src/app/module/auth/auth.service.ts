@@ -16,6 +16,12 @@ const create = async (user: IUser): Promise<IloginResponse> => {
   // set role
   user.role = 'user';
 
+  // Find existing user by email
+  const existingUser = await User.findOne({ email: user.email });
+  if (existingUser) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'User already exists');
+  }
+
   const newUser = await User.create(user);
   if (!newUser) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Failed to Register');

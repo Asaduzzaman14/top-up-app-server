@@ -18,18 +18,16 @@ router.post(
   AuthController.adminLogin
 );
 
-router.post('/register', AuthController.create);
+router.post(
+  '/register',
+  validateRequest(AuthValidation.authValidationZodSchema),
+  AuthController.create
+);
 
 router.post(
   '/create-admin',
   // auth(ENUM_USER_ROLE.ADMIN),
   AuthController.createadmin
-);
-
-router.post(
-  '/refresh-token',
-  validateRequest(AuthValidation.refreshTokenZodSchema),
-  AuthController.refreshToken
 );
 
 router.post('/change-password', auth(), AuthController.changePassword);
