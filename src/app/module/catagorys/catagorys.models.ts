@@ -14,6 +14,10 @@ const categorySchema = new Schema<ICategory, CategoryModel>(
       type: String,
       required: [true, 'description is required'],
     },
+    status: {
+      type: Boolean,
+      default: true,
+    },
   },
   { timestamps: true }
 );

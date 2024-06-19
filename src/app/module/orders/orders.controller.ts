@@ -24,7 +24,6 @@ const create: RequestHandler = catchAsync(
 const updateData = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const updatedData = req.body;
-  console.log(id, updateData);
 
   const result = await Services.updateDataById(id, updatedData);
 
@@ -62,6 +61,17 @@ const getAlldata = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const getAllGraphData = catchAsync(async (req: Request, res: Response) => {
+  const result = await Services.getWeeklySell();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'get Weekly Sell Succesfully',
+    data: result,
+  });
+});
+
 //  get All
 const getAlldataForAdmin = catchAsync(async (req: Request, res: Response) => {
   const result = await Services.getAllAdminData();
@@ -80,4 +90,5 @@ export const Controller = {
   updateData,
   deleteData,
   getAlldataForAdmin,
+  getAllGraphData,
 };

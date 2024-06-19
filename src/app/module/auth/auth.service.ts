@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt';
+
 import httpStatus from 'http-status';
 import { JwtPayload, Secret } from 'jsonwebtoken';
 import config from '../../../config';
@@ -10,6 +12,7 @@ import {
   IloginResponse,
 } from './auth.interface';
 import { User } from './auth.model';
+import { sendEmail } from './sendResetMail';
 
 const create = async (user: IUser): Promise<IloginResponse> => {
   console.log(user);
@@ -165,10 +168,71 @@ const passwordChange = async (
   isUserExist.save();
 };
 
+const forgotPass = async (payload: { email: string }) => {
+  const user = await User.findOne(
+    { email: payload.email },
+    { email: 1, role: 1, name: 1 }
+  );
+
+  console.log(user);
+
+  if (!user) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'User does not exist!');
+  }
+
+  const passResetToken = await jwtHelpers.createResetToken(
+    { id: user.id },
+    config.jwt_access_secret as Secret,
+    '50m'
+  );
+
+  const resetLink: string = config.resetlink + `token=${passResetToken}`;
+
+  console.log('profile: ', user);
+
+  await sendEmail(
+    user.email,
+    `
+      <div>
+        <p>Hi, ${user.name}</p>
+        <p>Your password reset link: <a href=${resetLink}>Click Here</a></p>
+        <p>Thank you</p>
+      </div>
+  `
+  );
+
+  // return {
+  //   message: "Check your email!"
+  // }
+};
+
+const resetPassword = async (
+  payload: { email: string; newPassword: string },
+  token: string
+) => {
+  const { email, newPassword } = payload;
+  const user = await User.findOne({ email }, { id: 1 });
+
+  if (!user) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'User not found!');
+  }
+
+  await jwtHelpers.verifyToken(token, config.jwt_access_secret as string);
+
+  const password = await bcrypt.hash(
+    newPassword,
+    Number(config.bycrypt_solt_rounds)
+  );
+
+  await User.updateOne({ email }, { password });
+};
+
 export const AuthService = {
   create,
   createAdmin,
   login,
   adminLogin,
   passwordChange,
+  forgotPass,
+  resetPassword,
 };

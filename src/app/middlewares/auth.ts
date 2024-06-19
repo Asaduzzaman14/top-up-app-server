@@ -9,7 +9,7 @@ const auth =
   (...requiredRoles: string[]) =>
   async (req: Request, Response: Response, next: NextFunction) => {
     try {
-      console.log(requiredRoles);
+      // console.log(requiredRoles);
 
       // get authorization token
       const token = req.headers.authorization;

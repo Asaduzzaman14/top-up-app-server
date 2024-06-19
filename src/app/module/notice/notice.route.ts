@@ -13,4 +13,6 @@ router.delete('/:id', auth(ENUM_USER_ROLE.ADMIN), Controller.deleteData);
 
 router.get('/', Controller.getAlldata);
 
+router.get('/admin', Controller.getAllAdmindata);
+
 export const NoticeRoutes = router;

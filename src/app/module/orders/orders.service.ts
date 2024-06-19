@@ -99,7 +99,27 @@ const updateDataById = async (
   id: string,
   paylode: IOrder
 ): Promise<IOrder | null> => {
-  const result = await Order.findByIdAndUpdate({ _id: id }, paylode, {
+  if (paylode.status == 'rejected') {
+    console.log(paylode);
+
+    const user = await User.findById({ _id: paylode.userId });
+    console.log(user);
+    if (!user) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'user not found');
+    }
+    const newWaller = Number(user?.wallet) + Number(paylode.price);
+    const id = paylode.userId;
+    const payload = {
+      wallet: newWaller,
+    };
+    await User.findByIdAndUpdate({ _id: id }, payload);
+  }
+
+  const data = {
+    status: paylode.status,
+  };
+
+  const result = await Order.findByIdAndUpdate({ _id: id }, data, {
     new: true,
   });
   return result;

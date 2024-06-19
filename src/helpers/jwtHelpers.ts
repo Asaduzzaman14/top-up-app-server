@@ -14,7 +14,7 @@ const verifyToken = (token: string, secret: Secret): JwtPayload => {
 
 const createResetToken = (
   payload: any,
-  secret: string,
+  secret: Secret,
   expireTime: string
 ): string => {
   return jwt.sign(payload, secret, {

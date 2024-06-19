@@ -15,4 +15,6 @@ router.get('/', auth(ENUM_USER_ROLE.USER), Controller.getAlldata);
 
 router.get('/admin', auth(ENUM_USER_ROLE.ADMIN), Controller.getAlldataForAdmin);
 
+router.get('/graph', Controller.getAllGraphData);
+
 export const OrderRoutes = router;

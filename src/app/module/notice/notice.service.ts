@@ -19,6 +19,13 @@ const create = async (data: INotice): Promise<INotice | null> => {
 };
 
 const getAllData = async (): Promise<INotice[]> => {
+  const result = await Notice.find({
+    status: 'active',
+  });
+  return result;
+};
+
+const getAllDataForAdmin = async (): Promise<INotice[]> => {
   const result = await Notice.find({});
   return result;
 };
@@ -49,4 +56,5 @@ export const Services = {
   getSingleData,
   updateDataById,
   deleteData,
+  getAllDataForAdmin,
 };

@@ -5,6 +5,7 @@ export type ICategory = {
   name: string;
   img?: string;
   description: string;
+  status: boolean;
 };
 
 export type CategoryModel = Model<ICategory, Record<string, unknown>>;

@@ -30,6 +30,18 @@ const getAlldata = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+
+const getAllAdmindata = catchAsync(async (req: Request, res: Response) => {
+  const result = await Services.getAllDataForAdmin();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'All Data Retrieved Succesfully',
+    data: result,
+  });
+});
+
 const getDataById = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const result = await Services.getSingleData(id);
@@ -74,6 +86,7 @@ const deleteData = catchAsync(async (req: Request, res: Response) => {
 export const Controller = {
   create,
   getAlldata,
+  getAllAdmindata,
   updateData,
   getDataById,
   deleteData,
