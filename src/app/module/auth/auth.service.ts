@@ -217,12 +217,17 @@ const resetPassword = async (
     throw new ApiError(httpStatus.BAD_REQUEST, 'User not found!');
   }
 
-  await jwtHelpers.verifyToken(token, config.jwt_access_secret as string);
+  const isVarified = await jwtHelpers.verifyToken(
+    token,
+    config.jwt_access_secret as string
+  );
+  console.log(isVarified);
 
   const password = await bcrypt.hash(
     newPassword,
     Number(config.bycrypt_solt_rounds)
   );
+  console.log(password);
 
   await User.updateOne({ email }, { password });
 };
