@@ -7,9 +7,7 @@ const productSchema = new Schema<IProduct, ProductModel>(
       type: String,
       required: [true, 'name is required'],
     },
-    img: {
-      type: String,
-    },
+
     description: {
       type: String,
       required: [true, 'description is required'],

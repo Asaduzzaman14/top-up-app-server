@@ -2,7 +2,6 @@ import { Request, RequestHandler, Response } from 'express';
 import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
-import { ICategory } from '../catagorys/catagorys.interface';
 import { Services } from './products.service';
 
 const create: RequestHandler = catchAsync(
@@ -10,7 +9,7 @@ const create: RequestHandler = catchAsync(
     const { ...userData } = req.body;
     const result = await Services.create(userData);
 
-    sendResponse<ICategory>(res, {
+    sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: 'Successfully  Services Catagory added',
@@ -35,7 +34,7 @@ const getDataById = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const result = await Services.getSingleData(id);
 
-  sendResponse<ICategory>(res, {
+  sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Catagory Retrieved Successfully',
@@ -48,9 +47,9 @@ const updateData = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const updatedData = req.body;
   console.log(id, updateData);
-   const result = await Services.updateDataById(id, updatedData);
+  const result = await Services.updateDataById(id, updatedData);
 
-  sendResponse<ICategory>(res, {
+  sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Catagory successfully updated',
@@ -64,7 +63,7 @@ const deleteData = catchAsync(async (req: Request, res: Response) => {
 
   const result = await Services.deleteData(id);
 
-  sendResponse<ICategory>(res, {
+  sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Services Catagory deleted Successfully',
