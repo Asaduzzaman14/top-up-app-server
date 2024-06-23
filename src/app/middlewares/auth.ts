@@ -15,7 +15,7 @@ const auth =
       const token = req.headers.authorization;
 
       if (!token) {
-        throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorized');
+        throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorized!');
       }
       // verified token
       let verifyUser = null;
