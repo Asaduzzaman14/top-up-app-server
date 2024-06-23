@@ -5,9 +5,17 @@ import { Controller } from './payment.controller';
 
 const router = express.Router();
 
-router.post('/', auth(ENUM_USER_ROLE.USER), Controller.create);
+router.post(
+  '/',
+  auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
+  Controller.create
+);
 
-router.get('/', auth(ENUM_USER_ROLE.ADMIN), Controller.getAlldata);
+router.get(
+  '/',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER),
+  Controller.getAlldata
+);
 
 router.patch('/:id', auth(ENUM_USER_ROLE.ADMIN), Controller.updateData);
 

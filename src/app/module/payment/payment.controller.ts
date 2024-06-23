@@ -14,7 +14,7 @@ const create: RequestHandler = catchAsync(
     sendResponse<IPayment>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Deposit Success',
+      message: 'UPay add Success',
       data: result,
     });
   }
